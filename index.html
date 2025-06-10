@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.zabudnutehrady.sk</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 10vh; /* Zmenené na 10vh pre lepšie testovanie, môžete zmeniť späť na 100vh */
+            background-color: rgb(134, 130, 110);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(153, 87, 6);
+            height: auto;
+            flex-wrap: nowrap;
+        }
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            color: rgb(14, 13, 13);
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+            width: 40%;
+        }
+        .header-left {
+            justify-content: space-around;
+        }
+        .header-right {
+            justify-content: space-around;
+        }
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        .header-center img {
+            max-height: 166.66px;
+            max-width: 100%;
+            height: auto;
+            position: static;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .header-center img:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav button {
+            margin: 0 1cm;
+            font-size: 16px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            border-width: 0;
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-family: "Devonshire", cursive;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        nav button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #726331;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+            border-radius: 10px;
+            margin-top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            font-size: 19px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f7;
+        }
+
+        .dropdown button {
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            padding: 20px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 19px;
+            font-family: "Devonshire", cursive;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 3px solid rgb(247, 242, 234);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 40px;
+            box-sizing: border-box;
+            margin: 0 1cm;
+        }
+
+        .dropdown button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(235, 234, 233, 0.7);
+        }
+
+        /* Added styles for active state */
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        .dropdown.active button {
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            color: rgb(247, 240, 240);
+            padding: 110px 30px 30px 30px;
+        }
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .video-container {
+            width: 60%;
+        }
+        .video-container video {
+            width: 100%;
+            height: auto;
+            border-radius: 40px;
+        }
+        .text-container {
+            width: 60%;
+            padding-left: 20px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+            margin-right: 15px;
+            cursor: default;
+        }
+        .text-container p {
+            font-size: 1em;
+            margin-left: 5cm;
+            margin-right: 5cm;
+            text-align: justify;
+        }
+
+        .text-container button {
+            background-color: rgb(190, 152, 68);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .article-container {
+            display: flex;
+            align-items: center;
+            font-size: 40px;
+            background-color: rgb(124, 107, 70);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: x-large;
+            font-weight: bold;
+            cursor: default;
+            margin-bottom: 10px;
+        }
+        .text-left {
+            flex: 2;
+            padding-right: 40px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        .image-right {
+            flex: 1;
+            text-align: right;
+            margin-top: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+        .maly-obrazok {
+            max-width: 850px;
+            height: 450px;
+            border-radius: 40px;
+        }
+        .new-article-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: rgb(92, 69, 19);
+            border-radius: 40px;
+            margin-top: 25px;
+        }
+        .new-text-left {
+            flex: 7;
+            padding-right: 40px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+            cursor: default;
+        }
+        .new-text-left button {
+            background-color: rgb(190, 152, 68);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .new-text-left p {
+            font-size: x-large;
+        }
+        .kontajner-obrazkov img {
+            display: block;
+            margin-right: 1px;
+            max-width: 350px;
+            margin-right: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 30px;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 90px;
+            max-width: max-content;
+        }
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            margin: 50px;
+            border: 5px solid #0f0f0f;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            z-index: 10;
+        }
+
+        footer {
+            background-color: black;
+            color: rgb(247, 240, 240);
+            text-align: center;
+            font-size: x-large;
+            padding: 40px;
+        }
+        .unifrakturmaguntia-regular {
+            font-family: "UnifrakturMaguntia", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        #fullscreen-img-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fullscreen-img-container img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        #fullscreen-img-container p {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .hoverable-image {
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .hoverable-image:hover {
+            transform: translateY(-10px);
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .text-container p{
+            text-align: justify;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            margin-left: -5%;
+            margin-right: -5%;
+            margin-top: 4%;
+        }
+        .uhorsko-mapa {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .uhorsko-mapa:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        #back-to-top {
+            position: fixed; /* Pevné umiestnenie vzhľadom na okno prehliadača */
+            bottom: 20px; /* Umiestnenie od spodného okraja okna */
+            right: 20px; /* Umiestnenie od pravého okraja okna */
+            z-index: 100; /* Zobrazenie nad ostatnými prvkami stránky */
+            cursor: pointer; /* Zmena kurzora na ruku pri prechode myšou */
+            width: 60px; /* Šírka tlačidla */
+            height: 60px; /* Výška tlačidla */
+            border-radius: 50%; /* Okrúhly tvar tlačidla */
+            background-color: #79652a; /* Hnedá farba pozadia */
+            color: #0f0e0e; /* Biela farba šípky */
+            font-size: 54px; /* Veľkosť šípky */
+            line-height: 50px; /* Vertikálne vycentrovanie šípky */
+            text-align: center; /* Horizontálne vycentrovanie šípky */
+            transition: background-color 0.3s ease; /* Plynulý prechod farby pozadia */
+            opacity: 0; /* Priehľadnosť na 0 (neviditeľné) */
+            visibility: hidden; /* Skryté tlačidlo */
+            border: 3px solid #634726;
+        }
+
+        #back-to-top:hover {
+            background-color: #7a380d; /* Tmavší odtieň hnedej pri prechode myšou */
+        }
+
+        #back-to-top.show {
+            opacity: 1; /* Zobrazenie tlačidla nastavením priehľadnosti na 1 */
+            visibility: visible; /* Zviditeľnenie tlačidla */
+        }
+
+        /* Nové štýly pre plávajúci obrázok hradu */
+        #floating-castle-link {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999; /* Vyššie ako back-to-top tlačidlo */
+            opacity: 0; /* Počiatočne skryté */
+            visibility: hidden; /* Počiatočne skryté */
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out; /* Pridaná prechodová animácia pre hover efekt */
+            width: 80px; /* Pevná šírka */
+            height: 80px; /* Pevná výška */
+            border-radius: 50%; /* Okrúhly tvar */
+            overflow: hidden; /* Orezanie obsahu mimo kruhu */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            background-color: #79652a; /* Farba pozadia podobná tlačidlám */
+            display: flex; /* Použitie flexboxu na centrovanie obsahu */
+            justify-content: center;
+            align-items: center;
+        }
+
+        #floating-castle-link.show {
+            opacity: 1; /* Zobraziť, keď sa pridá trieda 'show' */
+            visibility: visible; /* Zviditeľniť */
+        }
+
+        #floating-castle-link:hover { /* Aplikujeme hover efekt priamo na kontajner */
+            transform: translateY(-5px) scale(1.05); /* Zdvihnutie kontajnera o polovicu a zväčšenie pri hoveri */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); /* Upravený tieň pre efekt vystúpenia */
+            z-index: 1001; /* Zvýšenie z-indexu pre vystúpenie do popredia */
+        }
+
+        #floating-castle-link img {
+            width: 100%; /* Obrázok vyplní div */
+            height: 100%;
+            object-fit: cover; /* Pokryje oblasť, prípadne orezanie */
+            border-radius: 50%; /* Zabezpečí, že aj obrázok bude okrúhly */
+            /* Odstránený transition a transform z img, presunuté na parent div */
+        }
+
+        /* Odstránené pravidlo pre img:hover, pretože efekt je na kontajneri */
+        /* #floating-castle-link img:hover {
+            transform: translateY(-10px);
+        } */
+
+        #floating-castle-link a {
+            display: block; /* Odkaz vyplní div */
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const oMneButton = document.querySelector('.reference-button');
+            const zabudnuteHradyDropdown = document.getElementById('zabudnuteHradyDropdown');
+            const headerCenter = document.querySelector('.header-center');
+            const body = document.querySelector('body');
+            const galleryImages = document.querySelectorAll('.gallery img');
+            const fullscreenImgContainer = document.createElement('div');
+            fullscreenImgContainer.id = 'fullscreen-img-container';
+            document.body.appendChild(fullscreenImgContainer);
+
+            // Nové elementy pre plávajúci obrázok
+            const header = document.querySelector('header');
+            const floatingCastleLink = document.getElementById('floating-castle-link');
+            // Získanie elementu, na ktorý sa má scrollovať
+            const targetParagraph = document.getElementById('sarisska-stolica-paragraph');
+
+
+            dropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            });
+
+            const oAutoroviLink = document.querySelector('.dropdown-content a:nth-child(1)');
+            if (oAutoroviLink) {
+                oAutoroviLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    window.location.href = "o autorovi pokus 2.html";
+                });
+            }
+
+            const zabudnuteHradyLink = document.querySelector('.dropdown-content a:nth-child(2)');
+            if (zabudnuteHradyLink) {
+                zabudnuteHradyLink.href = "https://dajamabooks.sk/produkt/zabudnute-hrady/";
+            }
+
+            const historyLabLink = document.querySelector('.dropdown-content a:nth-child(3)');
+            if (historyLabLink) {
+                historyLabLink.href = "https://historylab.dennikn.sk/author/phdr-tomas-grancay/";
+            }
+
+            const krasySlovenskaLink = document.querySelector('.dropdown-content a:nth-child(4)');
+            if (krasySlovenskaLink) {
+                krasySlovenskaLink.href = "https://krasy-slovenska.sk/author/tomas-grancay/";
+            }
+
+            const dejepisLink = document.querySelector('.dropdown-content a:nth-child(5)');
+            if (dejepisLink) {
+                dejepisLink.href = "https://www.taktik.sk/dejepis-v-suvislostiach-5-ucebnica/";
+            }
+
+            const mapaUhorskaLink = document.querySelector('.dropdown-content a:nth-child(2)');
+
+            if (zabudnuteHradyDropdown) {
+                zabudnuteHradyDropdown.addEventListener('click', () => {
+                    const headerCenterImg = headerCenter.querySelector('img');
+                    if (headerCenterImg) {
+                        headerCenterImg.style.display = 'none';
+                    }
+                });
+            }
+
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    let targetUrl = '';
+                    switch (index) {
+                        case 0: targetUrl = 'Zbojnicky hrad.html'; break;    
+                        case 1: targetUrl = 'Hanigovsky-hrad.html'; break;
+                        case 2: targetUrl = 'Hrad-nad-Lipovcami.html'; break; 
+                        case 3: targetUrl = 'Kamenicky-hrad.html'; break;
+                        case 4: targetUrl = 'Obisovsky-hrad.html'; break;
+                        case 5: targetUrl = 'Kysak-hrad.html'; break;
+                        case 6: targetUrl = 'Medzianky--hradok.html'; break;
+                        case 7: targetUrl = 'Šebeš-hrad.html'; break;
+                        case 8: targetUrl = 'Kapušiansky-hrad.html'; break; 
+                        case 9: targetUrl = 'desiaty_obrazok.html'; break;
+                        case 10: targetUrl = 'jedenasty_obrazok.html'; break;
+                        case 11: targetUrl = 'Brezovica-hrad.html'; break;
+                        case 12: targetUrl = 'trinasty_obrazok.html'; break;
+                        case 13: targetUrl = 'strnasty_obrazok.html'; break;
+                        case 14: targetUrl = 'patnasty_obrazok.html'; break;
+                        case 15: targetUrl = 'sestnasty_obrazok.html'; break;
+                        case 16: targetUrl = 'sedemnasty_obrazok.html'; break;
+                        case 17: targetUrl = 'sedemnasty clanok.html'; break;
+                        default:  targetUrl = '#';
+                    }
+                    window.location.href = targetUrl;
+                });
+            });
+
+            const firstImage = document.querySelector('.gallery img:nth-child(0)');
+            if (firstImage) {
+                firstImage.addEventListener('click', () => {
+                    window.location.href = 'prvy_obrazok.html';
+                });
+            }
+
+            // Pridanie Event Listener pre zobrazenie/skrytie tlačidla pre návrat na vrch
+            const backToTopButton = document.getElementById('back-to-top');
+
+            window.addEventListener('scroll', () => {
+                // Ak je používateľ posunutý o viac ako 100 pixelov od vrchu, zobrazí sa tlačidlo
+                if (window.scrollY > 100) {
+                    backToTopButton.classList.add('show');
+                } else {
+                    backToTopButton.classList.remove('show');
+                }
+
+                // Logika pre zobrazenie/skrytie plávajúceho obrázka hradu
+                // Zobrazí sa, keď sa hlavička (header) odscroluje z obrazovky
+                if (window.scrollY > header.offsetHeight) {
+                    floatingCastleLink.classList.add('show');
+                } else {
+                    floatingCastleLink.classList.remove('show');
+                }
+            });
+
+            // Funkcia pre plynulé posúvanie s definovanou dĺžkou
+            function smoothScrollTo(element, duration) {
+                const targetPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                let startTime = null;
+
+                function animation(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const timeElapsed = currentTime - startTime;
+                    const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
+                    window.scrollTo(0, run);
+                    if (timeElapsed < duration) requestAnimationFrame(animation);
+                }
+
+                // Funkcia pre easing (zjemnenie animácie)
+                function easeInOutQuad(t, b, c, d) {
+                    t /= d / 2;
+                    if (t < 1) return c / 2 * t * t + b;
+                    t--;
+                    return -c / 2 * (t * (t - 2) - 1) + b;
+                }
+
+                requestAnimationFrame(animation);
+            }
+
+            // Nová logika pre plávajúci obrázok hradu
+            if (floatingCastleLink && targetParagraph) {
+                floatingCastleLink.addEventListener('click', (event) => {
+                    event.preventDefault(); // Zabraňuje predvolenému správaniu odkazu (rýchly skok)
+                    smoothScrollTo(targetParagraph, 1000); // 1000ms = 1 sekunda pre plynulý prechod
+                });
+            }
+
+            // Upravená logika pre tlačidlo pre návrat na vrch
+            backToTopButton.addEventListener('click', () => {
+                // Použitie vlastnej smoothScrollTo funkcie pre plynulý prechod na vrch stránky
+                smoothScrollTo(document.body, 1000); // 1000ms = 1 sekunda
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="floating-castle-link">
+        <a href="#" title="hrady Šarišskej stolice">
+            <img src="logo stolice.jpg" alt="Hrady Šarišskej stolice"> 
+        </a>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <nav>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">O mne...</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="o autorovi pokus 2.html">o autorovi</a>
+                        <a href="https://dajamabooks.sk/produkt/zabudnute-hrady/">Zabudnuté hrady</a>
+                        <a href="https://historylab.sk/autor-phdr-tomas-grancay/">HistoryLab</a>
+                        <a href="https://www.krasyslovenska.sk/author/tomas-grancay/">Krásy Slovenska</a>
+                        <a href="https://www.taktik.sk/dejepis-v-suvislostiach-5-ucebnica/">Dejepis v súvislostiach</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">Mapa hradov</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="najnovšia mapa.html">súčasná mapa</a>
+                        <a href="https://maps.arcanum.com/sk/map/europe-18century-firstsurvey/?layers=163%2C165&bbox=1187933.7705972746%2C5545106.356944461%2C3517734.392729447%2C6412208.0058115">mapa Uhorska</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="header-center">
+            <a href="uvodna strana kopia.html">
+                <img src="logo.jpg" alt="Logo Zabudnuté hrady"  style="transition: transform 0.3s ease-in-out;">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav>
+                   <div class="dropdown">
+                            <a href="#" style="color: black;">
+                                <button>Výskum</button>
+                            </a>
+                            <div class="dropdown-content">
+                                <a href="historia oprava.html">história</a>
+                                <a href="cvičenie-architekt.html">architektúra</a>
+                            </div>
+                    </div>
+                    <div class="dropdown" id="zabudnuteHradyDropdown">
+                        <a href="#" style="color: black;">
+                            <button id="zabudnuteHradyBtn">O zabudnutých hradoch</button>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="Sarisska stolica.html">Šarišská stolica</a>
+                            <a href="Spisska stolica.html">Spišská stolica</a>
+                            <a href="#">Iný text</a>
+                        </div>
+                    </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div style="text-align: center; font-size: 2.8em; color: black; font-weight: bold; font-style: italic; font-family: Georgia, 'Times New Roman', Times, serif; margin-bottom: 30px;">
+            <i id="sarisska-stolica-heading"><b>Šarišská stolica</b></i>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <img src="saris erb.png" alt="Erb Šarišskej stolice" class="hoverable-image" style="max-width: 300px; border-radius: 10px;">
+        </div>
+
+        <div class="text-container" >
+            <p><i>Šarišská stolica</i>, jedna z najstarších v Uhorsku, získala svoje meno vďaka Šarišskému hradu, ktorý patril k najrozsiahlejším hradom na území dnešného Slovenska. V ranom stredoveku, keď hrad slúžil ako sídlo župana a stoličných úradov, pokrývali celú oblasť stolice rozsiahle lesy. Tieto husté kráľovské lesy boli obľúbeným miestom poľovačiek kráľa a jeho sprievodu. Do polovice 13. storočia bol Šariš súčasťou Novohradského komitátu, z ktorého sa neskôr oddelil Abov. Samostatná Šarišská stolica vznikla v prvej tretine 13. storočia, ešte pred tatárskym vpádom. Šarišský hrad bol považovaný za sídlo stoličného župana a zostal ním až do 18. storočia. Potom sa centrum presunulo do kráľovského mesta Prešov, kde župné úrady fungovali až do roku 1922. Šarišská stolica hraničila na severe s Poľským kráľovststvom, na východe so Zemplínskou stolicou, na juhu s Abovsko-turnianskou stolicou a na západe so Spišskou stolicou.</p>
+            <img src="Uhorsko mapa.png"  alt="Uhorsko" class="uhorsko-mapa" style="max-width: 500px; height: auto; border-radius: 10px;">
+            <p id="sarisska-stolica-paragraph">Hrady Šarišskej stolice:</p>
+        </div>
+
+        <div class="gallery">
+            <img src="Sowar.jpg" alt="Image 1" style="width: 300px; height: 300px;"> 
+            <img src="Nový hrad.jpg" alt="Image 2" style="width: 300px; height: 300px;">
+            <img src="Lipovecký hrad.JPG" alt="Image 3" style="width: 300px; height: 300px;">
+            <img src="Prvotný hrad s hradnou vežou a gotickým palácom..JPG" alt="Image 4" style="width: 300px; height: 300px;">
+            <img src="oBIšOVCE 2.jpg" alt="Image 5" style="width: 300px; height: 300px;">
+            <img src="Kysak.jpg" alt="Image 6" style="width: 300px; height: 300px;">
+            <img src="result_Medzianky (2).jpg" alt="Image 7" style="width: 300px; height: 300px;">
+            <img src="Podhradík.jpg" alt="Image 8" style="width: 300px; height: 300px;">
+            <img src="Kapušany2.jpg" alt="Image 9" style="width: 300px; height: 300px;">
+            <img src="Sokoľ hrad.jpg" alt="Image 10" style="width: 300px; height: 300px;">
+            <img src="Bodoň hrad.jpg" alt="Image 11" style="width: 300px; height: 300px;">
+            <img src="Záber na hradný areál zo západnej priekopy.jpg" alt="Image 12" style="width: 300px; height: 300px;">
+            <img src="Svinia hrádok.jpg" alt="Image 13" style="width: 300px; height: 300px;">
+            <img src="Brestov hrádok.jpg" alt="Image 14" style="width: 300px; height: 300px;">
+            <img src="Lipovec hrad.jpg" alt="Image 15" style="width: 300px; height: 300px;">
+            <img src="šariš hrad.jpg" alt="Image 16" style="width: 300px; height: 300px;"> 
+            <img src="Zborov hrad 2.JPG" alt="Image 17" style="width: 300px; height: 300px;">
+            <img src="Plaveč.jpg" alt="Image 18" style="width: 300px; height: 300px;">
+        </div>
+           <a href="#" id="back-to-top">↑</a>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025, všetky práva vyhradené.</p>
+    </footer>
+</body>
+</html>

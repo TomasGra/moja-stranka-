@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.zabudnutehrady.sk</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style> 
+        /* Import UnifrakturMaguntia font */
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+        body { 
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(153, 87, 6);
+            height: auto;
+            flex-wrap: nowrap;
+        }
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: space-around; 
+            color: rgb(14, 13, 13);
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+            width: 40%;
+        }
+        .header-left {
+            justify-content: space-around;
+        }
+        .header-right {
+            justify-content: space-around; 
+        }
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        .header-center img {
+            max-height: 166.66px;
+            max-width: 100%;
+            height: auto;
+            position: static;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .header-center img:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav button {
+            margin: 0 1cm;
+            font-size: 16px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            border-width: 0;
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-family: "Devonshire", cursive; /* This font is not imported, using fallback */
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        nav button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #726331;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+            border-radius: 10px;
+            margin-top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            font-size: 19px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f7;
+        }
+
+        .dropdown button {
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            padding: 20px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 19px;
+            font-family: "Devonshire", cursive; /* This font is not imported, using fallback */
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 3px solid rgb(247, 242, 234);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 40px;
+            box-sizing: border-box;
+            margin: 0 1cm;
+        }
+
+        .dropdown button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(235, 234, 233, 0.7);
+        }
+
+        /* Added styles for active state */
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        .dropdown.active button {
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            background-color: rgb(134, 130, 110);
+            color: rgb(247, 240, 240);
+            padding: 30px;
+        }
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 0 10%;
+            box-sizing: border-box;
+        }
+        /* Style for the heading and subtitle */
+        .heading-container {
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: center; 
+            align-items: center; /* Center items horizontally */
+            margin-bottom: 20px;
+            width: 100%; 
+        }
+        .heading-container h1,
+        .heading-container p {
+            margin: 0; /* Remove horizontal margins */
+            text-align: center; /* Ensure text is centered */
+        }
+        .heading-container h1 {
+            font-family: Georgia, 'Times New Roman', Times, serif; 
+            font-size: 2.8em;
+            color: #3d2311;
+            font-style: italic;
+            font-weight: bold;
+        }
+        .heading-container p {
+            font-style: italic;
+            font-size: 1.5em;
+            color: #3d2311;
+            margin-top: 5px; /* Add a small top margin for spacing */
+        }
+
+        .article-floating-link {
+            position: fixed; /* Always fixed relative to the viewport */
+            top: 50px; /* Position in the top right corner */
+            right: 0.9cm; /* 1cm from the right edge of the viewport */
+            z-index: 999; 
+            width: 70px; 
+            height: 70px; 
+            display: none; /* Initially hidden */
+            transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+        }
+        .article-floating-link img {
+            width: 100%; /* Make image fill its container */
+            height: 100%;
+            border-radius: 50%; /* Make it circular */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .article-floating-link img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* General article content style */
+        .article-content {
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 1.7;
+            font-size: 1.1em;
+            color: #000;
+            width: 100%; /* Ensure it takes full width within main-content padding */
+            box-sizing: border-box;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 90px;
+            max-width: 100%;
+            box-sizing: border-box;
+            position: relative; /* Needed for absolute positioning of controls */
+        }
+        .gallery img {
+            width: 500px;
+            height: 50%;
+            margin: 35px;
+            border: 3px solid #110f0e;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .gallery img:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        footer {
+            background-color: black;
+            color: rgb(236, 229, 229);
+            text-align: center;
+            font-size: x-large;
+            padding: 40px;
+        }
+        /* UnifrakturMaguntia CSS class - already defined, but applying directly to h1 */
+        .unifrakturmaguntia-regular {
+            font-family: "UnifrakturMaguntia", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Styles for full-screen image */
+        #fullscreen-img-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; /* Added to stack image and caption vertically */
+        }
+
+        #fullscreen-img-container img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        #fullscreen-img-container p {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #8b4513;
+            color: #f5f5f5;
+            border-radius: 50%;
+            padding: 15px; 
+            font-size: 36px; 
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease-in-out;
+            border: none;
+            width: 60px; 
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top:hover {
+            opacity: 1;
+        }
+        /* Removed transform: rotate(-90deg) to make arrow point up */
+        .back-to-top i {
+            display: block;
+        } 
+        .header-image {
+            width: 100%;
+            height: 17cm;
+            object-fit: cover; /* Ensures the image covers the entire area */
+            object-position: center; /* Centers the image within the area */
+            display: block; /*removes extra space below image*/
+        }
+
+        /* Styles for image navigation controls */
+        .img-nav-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 20px;
+            z-index: 10;
+            transition: background-color 0.3s ease-in-out;
+            border: none;
+            outline: none;
+        }
+
+        .img-nav-control:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .img-nav-prev {
+            left: 10px;
+        }
+
+        .img-nav-next {
+            right: 10px;
+        }
+
+        /* New styles for the decorative arrow */
+        .next-article-arrow {
+            display: flex;
+            justify-content: center;
+            margin-top: 40px; /* Spacing from the gallery */
+            margin-bottom: 40px; /* Spacing before footer */
+        }
+
+        .next-article-arrow a {
+            display: block;
+            width: 80px; /* Size of the arrow container */
+            height: 80px;
+            background-color: #8b4513; /* Brown background */
+            border-radius: 50%; /* Circular shape */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            text-decoration: none; /* Remove underline from link */
+        }
+
+        .next-article-arrow a:hover {
+            transform: translateY(-5px) scale(1.1);
+            background-color: #a0522d; /* Slightly lighter brown on hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .next-article-arrow svg {
+            width: 40px; /* Size of the SVG arrow */
+            height: 40px;
+            fill: #f5f5f5; /* White arrow color */
+            transition: fill 0.3s ease-in-out;
+        }
+
+        .next-article-arrow a:hover svg {
+            fill: #ffffff; /* White arrow color on hover */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const galleryImages = document.querySelectorAll('.gallery img');
+            const fullscreenImgContainer = document.getElementById('fullscreen-img-container');
+            const fullscreenImg = fullscreenImgContainer.querySelector('img');
+            const fullscreenImgCaption = fullscreenImgContainer.querySelector('p');
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const backToTopButton = document.createElement('button');
+            backToTopButton.className = 'back-to-top';
+            backToTopButton.innerHTML = '&#8593;'; // Up arrow
+            document.body.appendChild(backToTopButton);
+
+            // Add navigation controls
+            const prevButton = document.createElement('button');
+            prevButton.className = 'img-nav-control img-nav-prev';
+            prevButton.innerHTML = '&#10094;'; // Left arrow
+            fullscreenImgContainer.appendChild(prevButton);
+
+            const nextButton = document.createElement('button');
+            nextButton.className = 'img-nav-control img-nav-next';
+            nextButton.innerHTML = '&#10095'; // Right arrow
+            fullscreenImgContainer.appendChild(nextButton);
+
+            let currentImageIndex = 0;
+
+            function showImage(index) {
+                if (index < 0) {
+                    index = galleryImages.length - 1;
+                } else if (index >= galleryImages.length) {
+                    index = 0;
+                }
+                currentImageIndex = index;
+                const img = galleryImages[index];
+                const src = img.getAttribute('src');
+                const alt = img.getAttribute('alt');
+                fullscreenImg.setAttribute('src', src);
+                fullscreenImg.setAttribute('alt', alt);
+                fullscreenImgCaption.textContent = alt;
+            }
+
+            prevButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent container from closing
+                showImage(currentImageIndex - 1);
+            });
+
+            nextButton.addEventListener('click', (event) => {
+                event.stopPropagation(); // Prevent container from closing
+                showImage(currentImageIndex + 1);
+            });
+
+            // Function for smooth scrolling to the top with a custom duration
+            function scrollToTop(duration) {
+                const start = window.scrollY; // Current scroll position
+                const startTime = performance.now(); // Time when the scroll started
+
+                function animateScroll(currentTime) {
+                    const elapsedTime = currentTime - startTime;
+                    // Calculate progress (0 to 1) using ease-out cubic function
+                    const progress = Math.min(elapsedTime / duration, 1); 
+                    const easedProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
+
+                    window.scrollTo(0, start * (1 - easedProgress)); 
+
+                    // Continue animation if not yet at the top
+                    if (progress < 1) {
+                        requestAnimationFrame(animateScroll);
+                    }
+                }
+                // Start the animation
+                requestAnimationFrame(animateScroll);
+            }
+
+            backToTopButton.addEventListener('click', () => {
+                // Call the custom scrollToTop function with a duration (e.g., 1500ms for 1.5 seconds)
+                scrollToTop(1500); // Adjusted to 1.5 seconds for a smoother feel
+            });
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 200) {
+                    backToTopButton.style.opacity = '0.7';
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.opacity = '0';
+                    backToTopButton.style.display = 'none';
+                }
+            });
+
+            dropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            });
+
+            galleryImages.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    showImage(index);
+                    fullscreenImgContainer.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                });
+                img.addEventListener('mouseover', (event) => {
+                    event.target.style.transform = 'translateY(-10px) scale(1.1)';
+                    event.target.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+                });
+                img.addEventListener('mouseout', (event) => {
+                    event.target.style.transform = 'translateY(0) scale(1)';
+                    event.target.style.boxShadow = 'none';
+                });
+            });
+
+            fullscreenImgContainer.addEventListener('click', () => {
+                fullscreenImgContainer.style.display = 'none';
+                document.body.style.overflow = '';
+            });
+
+            const articleFloatingLink = document.querySelector('.article-floating-link');
+            const headerImage = document.querySelector('.header-image'); 
+
+            function updateFloatingLinkVisibility() {
+                if (!articleFloatingLink || !headerImage) {
+                    return;
+                }
+
+                const headerImageRect = headerImage.getBoundingClientRect();
+                // Check if the bottom of the header image has scrolled past the top of the viewport
+                if (headerImageRect.bottom <= 0) {
+                    articleFloatingLink.style.display = 'block'; // Show the image
+                } else {
+                    articleFloatingLink.style.display = 'none'; // Hide the image
+                }
+            }
+
+            // Initial check and event listeners for the floating link visibility
+            updateFloatingLinkVisibility(); 
+            window.addEventListener('scroll', updateFloatingLinkVisibility); 
+            window.addEventListener('resize', updateFloatingLinkVisibility); 
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <nav>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">O mne...</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="o autorovi pokus 2.html">o autorovi</a>
+                        <a href="https://dajamabooks.sk/produkt/zabudnute-hrady/">Zabudnuté hrady</a>
+                        <a href="https://historylab.dennikn.sk/author/phdr-tomas-grancay/">HistoryLab</a>
+                        <a href="https://krasy-slovenska.sk/author/tomas-grancay/">Krásy Slovenska</a>
+                        <a href="https://www.taktik.sk/produkt/dejepis-v-suvislostiach-5-ucebnica/">Dejepis v súvislostiach</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">Mapa hradov</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="najnovšia mapa.html">súčasná mapa</a>
+                        <a href="https://maps.arcanum.com/sk/map/europe-18century-firstsurvey/?layers=163%2C165&bbox=1157739.9067500231%2C5570369.927239289%2C3487540.5288821952%2C6437471.576106328">mapa Uhorska</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="header-center">
+            <a href="uvodna strana kopia.html"> 
+                <img src="logo.jpg" alt="Logo Zabudnuté hrady" style="transition: transform 0.3s ease-in-out;">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button>Výskum</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="historia oprava.html">história</a>
+                        <a href="cvičenie-architekt.html">architektúra</a> 
+                    </div>
+                </div>
+                <div class="dropdown" id="zabudnuteHradyDropdown">
+                    <a href="#" style="color: black;">
+                        <button id="zabudnuteHradyBtn">O zabudnutých hradoch</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="Sarisska stolica.html">Šarišská stolica</a>
+                        <a href="Spisska stolica.html">Spišská stolica</a>
+                        <a href="#">Iný text</a> 
+                    </div>
+                </div>
+            </nav>
+            </div>
+    </header>
+    <img class = "header-image" src="Hrad sebes - titul.jpg" alt="Hrad Devín"> 
+    <main>
+        <div class="main-content">
+            <div class="heading-container">
+                <h1 style="font-size: 2.8em; color: #3d2311; font-style: italic; font-weight: bold; font-family: Georgia, 'Times New Roman', Times, serif;">,,Hrad Šebeš"</h1>
+                <p style="font-style: italic; font-size: 1.5em; color: #3d2311;">(Latinsky: castrum Sebes)</p> 
+            </div>
+            <article class="article-content">
+                <p>
+                    <i>
+                        Na kopci Zámok, vo výške 529 metrov nad morom, sa týčia ruiny malého kamenného hradu. Toto zaniknuté opevnenie sa nachádza neďaleko Prešova, priamo nad obcou Podhradík.<br> 
+                        K areálu hradu sa dostanete jednoducho z konca dediny, pričom priamo pod hradným vrchom nájdete aj parkovisko.
+                    </i> 
+                </p>
+            </article> 
+            <section class="article-content">
+                <h2 style="font-size: 2em; color: #2e190b; margin-bottom: 15px;">História</h2>     
+                
+                <p>
+                   Prvé písomné zmienky o území, kde dnes stoja ruiny hradu Šebeš, siahajú do roku 1285. 
+                   Kráľ Ladislav IV. vtedy daroval túto oblasť zemanovi Budovi, pričom jeho majetok bol nazvaný Havraní dom (Holloudzalasa). 
+                   Predpokladá sa, že práve zeman Buda nechal na tomto mieste, kde neskôr stál kamenný hrad, vybudovať drevený hrádok. 
+                   Kráľ Ladislav IV. potvrdil vlastnícke práva aj Budovým synom – Petrovi, Ladislavovi, Imrichovi a Dončovi. 
+                </p> 
+                <p>
+                    Napriek tomu už v roku 1300 panovník Ondrej III. z neznámych príčin daroval toto územie šľachticovi Kvetovi. 
+                    Po smrti Ondreja III. v roku 1301 prešiel majetok spolu s dreveným hrádkom do rúk pána Synka, syna Tomáša, ktorý používal aj prídomok de Sebessy (zo Šebeša). 
+                    Hoci sa v darovacej listine z tohto obdobia o existencii hradu nehovorí, predpokladá sa, že drevený hrádok stál na rovnakom vrchu ako neskorší kamenný hrad.
+                </p>
+                <p>
+                  O existencii kamenného hradu na panstve Šebeš sa dozvedáme až z listiny kráľa Karola Róberta z roku 1315. 
+                  V tejto listine potvrdzuje právo zemepánovi Synkovi a jeho rodine rozumne a spravodlivo nakladať so svojím majetkom. 
+                  Spomína sa tu aj výstavba kamenného hradu na vrchu zvanom Mačka (monte Machkakw). 
+                  K hradu patrili osady, ktoré dnes poznáme ako Podhradík, Severná, Vyšná Šebastová, Nižná Šebastová a Okružná. 
+                </p>
+                <p>
+              Prvý písomný doklad o dedine (Podhradík, dnešná obec) prichádza z roku 1401, ktorá bola majetkovou súčasťou hradného panstva Šebeš.
+                Tento majetok zostal v držbe rodiny s predikátom de Sebessy niekoľko desaťročí. 
+                Koncom 15. storočia však táto šľachtická rodina stratila svoj majetok, ktorý bol darovaný Szegnyeyovcom, podporovateľom Jána Korvína. 
+                Tí ho vlastnili do posledného desaťročia 15. storočia. Z kráľovskej listiny z roku 1491 vyplýva, že panstvo Šebeš spolu s hradom prešlo do majetku mesta Košice. 
+                Košice však o hrad neprejavovali veľký záujem, keďže bol pre ne príliš vzdialený.
+                </p>
+                <p>
+                  Zánik hradu Šebeš úzko súvisel s napätými vzťahmi medzi okolitými panstvami. 
+                  Narušené vzťahy s panstvom Soósovcov z neďalekého Solivaru vyvrcholili v roku 1363, keď sa Soósovci sťažovali na neoprávnené zabratie majetku pod hradom Šebeš. 
+                  Podobne aj prešovskí mešťania viedli spory s pánmi zo Šebeša o neprávom zabraté pozemky  
+                </p>
+                <p>
+                  Tento spor dospel k vrcholu v roku 1528, keď po smrti Jána Sebessyho vojaci mesta Prešov násilne odňali majetky jeho manželke, hrad obsadili a dobyli. 
+                  Vďaka dobrým kontaktom rodiny Sebessyovcov na kráľovskom dvore im boli pozemky prinavrátené a hrad bol opäť obnovený.  
+                </p>
+                <p>
+                    Pokojné obdobie však vystriedali ďalšie spory s Prešovom, ktoré znova vyvrcholili v roku 1550. 
+                    Počas prímeria pozval hradný pán František Sebessy prešovského richtára Imricha Fontanusa na hrad. 
+                    Fontanus využil pozvanie na priamy útok – po obsadení hradu dal hradného pána Františka Sebessyho a jeho kastelána Mikuláša Gergelakyho obesiť nad vstupom do hradu. 
+                    Mešťania hrad vyrabovali a zničili.
+                </p>
+                <p>
+                    Neskôr hrad slúžil už len ako útočisko pre šľachtu, ktorá si v obci Nižná Šebastová postavila panskú kúriu. 
+                    Po niekoľkých desaťročiach bol hrad neudržiavaný a postupne upadal. Rozpadnuté hradby poddaní využili ako stavebný materiál na výstavbu svojich príbytkov pod hradom. 
+                    Hrad Šebeš tak už nikdy nebol obnovený a jeho pozostatky sú dodnes nemým svedkom bohatej histórie.
+                </p>
+
+                
+                <div class="gallery">
+                    <img src="Hrad šebeš - mapa .jpg" alt="Výsek mapy Uhorskej časti z 19. storočia, na ktorej je vyobrazená usadlosť Podhradík s vyznačením umiestnenia hradu (zdroj: arcanum.com)" style="width: 500px; height: 350px;">     
+                    <img src="Listina z roku 1526 opisujúca majetkový spor s pánmi z hradu Šebeš a Soósovcami zo Sowaru. Hrad je v listine spomenutý ako miesto, kde prebieha oprava strechy..jpg" alt="Listina z roku 1526 opisujúca majetkový spor s pánmi z hradu Šebeš a Soósovcami zo Sowaru. Hrad je v listine spomenutý ako miesto, kde prebieha oprava strechy (Maďarský národný archív)." style="width: 500px; height: 450px;"> 
+                </div>
+            </section> 
+            <section class="article-content">
+                <h2 style="font-size: 2em; color: #3b2311; margin-bottom: 15px; text-align: left;">Architektúra</h2>
+                <p style="text-align: left;">
+                 Na vrchu Zámok stoja dodnes viditeľné zvyšky kamenného hradu. Tento kopec je zo všetkých strán ohraničený strmými svahmi. 
+                 Predpokladá sa, že na tomto strategicky zvolenom mieste stál pôvodne drevený hrádok. Neskôr bol stredoveký hrad postavený z kameňa s využitím pokročilých stavebných techník. 
+                 Vybudovaním tejto malej kamennej pevnosti sa charakter hradu zmenil na pomerne skromný reprezentačný priestor.
+                </p> 
+                 <p>
+                  Hradný areál bol situovaný na temene vrchu s rozmermi 60 x 8 m. 
+                  Táto úzka plošina neumožňovala hradným architektom postaviť rozsiahlejšie panské sídlo. 
+                  Preto na západnej strane hradného vrchu vybudovali vežovitú stavbu označenú ako palác (1). 
+                  Toto označenie súviselo s jej využitím na obytné účely. Archeologický výskum na mieste paláca odhalil súčasti oblečenia a predmety ako džbány a rôznu keramiku. 
+                  Táto stavba pozostávala z dvoch miestností s celkovou plochou 9 x 7 m a predpokladá sa, že mohla mať maximálne tri podlažia. 
+                  Z jej najvyššej časti boli dobre viditeľné aj susedné hrady Šariš a Kapušany. 
+                  Palácová veža bola zo západnej strany chránená priekopou (4) vytesanou do skaly, čo výrazne zvyšovalo jej obranyschopnosť. 
+                  Zvyšky tejto priekopy je možné vidieť v areáli hradu aj v súčasnosti.
+                </p>    
+                <p>
+               Po severnej a južnej strane boli k palácovej budove pripojené kamenné hradby, ktoré sa tiahli smerom na východ, až po maximálne dosiahnuteľnú plochu hradného kopca. 
+               Tieto múry boli pravdepodobne zakončené ochodzou. Ich nadzemné zvyšky sú viditeľné aj dnes, predovšetkým na severnej strane (2). 
+               Z východnej strany bol neveľký hradný areál ukončený kruhovou vežou (3) s vnútorným priemerom 6 m a hrúbkou múru 1,5 m. 
+               Veža pravdepodobne slúžila na ubytovanie služobníctva a hradnej stráže, čo potvrdzujú aj archeologické nálezy v jej okolí, ako sú časti zbraní a náradia dennej potreby, napríklad sekery či časti riadu. 
+               Túto kruhovú vežu postavili v smere prístupu, čo podčiarkuje jej strategický význam pri obrane predpolia hradu.
+                </p>  
+                <p>
+               Predpokladaný vstup do areálu hradného nádvoria bol situovaný z južnej strany. 
+               Predpokladá sa, že vstup bol možný len pre peších, v krajnom prípade pre jedného jazdca (5). 
+               O prítomnosti jazdcov a tiež služobníkov starajúcich sa o kone svedčia aj archeologické nálezy; na nádvorí sa napríklad našla podkova. 
+               Kamenný hrad bol postavený na základe bežnej stredovekej kamennej architektúry. 
+               Múdre využitie hradného vrchu poukazuje na existenciu niekdajšieho neveľkého feudálneho panského sídla s jednoduchým, no pevnostným charakterom.
+                </p>
+                 
+               
+                
+                <div class="gallery">
+                    <img src="Podhradík - plán.jpg" alt="Plán hradu podľa autora" style="width: 600px; height: 420px;"> 
+                    <img src="Podhradík, vizualizácia.png" alt="Vizualizácia hradu" style="width: 500px; height: 450px;">  
+                </div> 
+            </section>
+            <section>
+                <h2 style="font-size: 2em; color: #3b2311; margin-bottom: 15px;">Galéria</h2> 
+                <div class="gallery">
+                    <img src="Pohľad na obytnú vežu z nádvoria.jpg" alt="Pohľad na obytnú vežu z nádvoria." style="width: 500px; height: 300px;">             
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Pohľad do hradného nádvoria z miesta kruovej strážnej veže..JPG" alt="Pohľad do hradného nádvoria z miesta kruhovej strážnej veže." style="width: 500px; height: 300px;" >
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Výhľad z hradu, pohľad na severozápad..jpg" alt="Výhľad z hradu, pohľad na severozápad." style="width: 500px; height: 300px;">
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Výhľad z hradu, pohľad na východ.jpg" alt="Výhľad z hradu, pohľad na východ."style="width: 500px; height: 300px;">  
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Hradná priekopa sekaná do hradnej skaly.jpg" alt="Hradná priekopa sekaná do hradnej skaly.jpg" style="width: 500px; height: 300px;"> 
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Terén suchej priekopy na východnej strane..jpg" alt="Terén suchej priekopy na východnej strane." style="width: 500px; height: 300px;">  
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                    <img src="Hrad z južnej strany obkolesujú Slanské vrchy.jpg" alt="Hrad z južnej strany obkolesujú Slanské vrchy." style="width: 500px; height: 300px;"> 
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                   <img src="Miesto kruhovej veže..JPG" alt="Miesto kruhovej veže." style="width: 500px; height: 300px;">  
+                    <p style="text-align: center; font-size: 0.9em; color: #555;"></p>
+                </div>
+            </section>
+            <section class="article-content">
+                <h2 style="font-size: 2em; color: #2e190b; margin-bottom: 15px;">Použitá literatúra</h2> 
+               
+                <p> 
+                    PLAČEK, M., BÓNA, M., 2007. <i>Encyklopédia slovenských hradov</i>. Bratislava: SLOVART, ISBN: 978-80-8085-287-0.
+                </p>    
+                <p>
+                    GRANČAY. T., <i>Zabudnuté hrady</i>. 2022. Vydavateľstvo Dajama: Krupina. s.160, ISBN 978-80-8136-144-9.     
+                </p>
+                <p>
+                    GRANČAY, T. <i>Hrad Šebeš</i>. In: Krásy Slovenska. [online]. Dostupné na: https://krasy-slovenska.sk/hrad-sebes/.  
+                </p>
+                <p> 
+                    SLIVKA, M. VALLÁŠEK, A. 1991. <i>Hrady a hrádky na východnom Slovensku</i>. Košice : Východoslovenské vydavateľstvo, ISBN:  ISBN: 80-85174-42-1. 
+                </p>
+                <p>
+                    História obce. In: Obec Podhradík. [online].Dostupné na: https://www.podhradik.sk/o-hrade-sebes.html. 
+
+                </p>
+            </section>
+            <div class="next-article-arrow">
+                <a href="Kapušiansky-hrad.html" title="Prejsť na ďalší článok">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025, Zabudnuté hrady. Všetky práva vyhradené.</p>
+    </footer>
+    <div id="fullscreen-img-container">
+        <img src="" alt="">
+        <p></p>
+    </div>
+    <a href="Sarisska stolica.html" class="article-floating-link" title="Zobraziť hrady Šarišskej stolice">
+        <img src="saris erb.png" alt="Ikona Všetky články">
+    </a>
+</body>
+</html>
