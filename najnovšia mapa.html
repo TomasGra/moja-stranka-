@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.zabudnutehrady.sk</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: rgb(134, 130, 110); /* Šedé pozadie pre telo stránky */
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(153, 87, 6);
+            height: auto;
+            flex-wrap: nowrap;
+        }
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            color: rgb(14, 13, 13);
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+            width: 40%;
+        }
+        .header-left {
+            justify-content: space-around;
+        }
+        .header-right {
+            justify-content: space-around;
+        }
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        .header-center img {
+            max-height: 166.66px;
+            max-width: 100%;
+            height: auto;
+            position: static;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .header-center img:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav button {
+            margin: 0 1cm;
+            font-size: 16px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            border-width: 0;
+            margin-left: 0;
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-family: "Devonshire", cursive;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        nav button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #726331;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+            border-radius: 10px;
+            margin-top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            font-size: 19px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f7;
+        }
+
+        .dropdown button {
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            padding: 20px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 19px;
+            font-family: "Devonshire", cursive;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 3px solid rgb(247, 242, 234);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 40px;
+            box-sizing: border-box;
+            margin: 0 1cm;
+        }
+
+        .dropdown button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(235, 234, 233, 0.7);
+        }
+
+        /* Added styles for active state */
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        .dropdown.active button {
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            color: rgb(247, 240, 240);
+            padding: 0;
+        }
+
+        footer {
+            background-color: black;
+            color: rgb(247, 240, 240);
+            text-align: center;
+            font-size: x-large;
+            padding: 40px;
+        }
+        /* UnifrakturMaguntia CSS class */
+        .unifrakturmaguntia-regular {
+            font-family: "UnifrakturMaguntia", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Iframe styles */
+        iframe {
+            width: 80%; /* Adjust as needed */
+            height: 60vh; /* Adjust as needed */
+            border: none;
+            border-radius: 20px; /* Rounded corners for the iframe */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for better visibility */
+            display: block; /* Important for centering */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const oMneButton = document.querySelector('.reference-button');
+            const zabudnuteHradyDropdown = document.getElementById('zabudnuteHradyDropdown');
+            const headerCenter = document.querySelector('.header-center');
+
+            dropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            });
+
+            const oAutoroviLink = document.querySelector('.dropdown-content a:nth-child(1)');
+            if (oAutoroviLink) {
+                oAutoroviLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    window.location.href = "o autorovi pokus 2.html";
+                });
+            }
+
+            const zabudnuteHradyLink = document.querySelector('.dropdown-content a:nth-child(2)');
+            if (zabudnuteHradyLink) {
+                zabudnuteHradyLink.href = "https://dajamabooks.sk/produkt/zabudnute-hrady/";
+            }
+
+            const historyLabLink = document.querySelector('.dropdown-content a:nth-child(3)');
+            if (historyLabLink) {
+                historyLabLink.href = "https://historylab.dennikn.sk/author/phdr-tomas-grancay/";
+            }
+
+            const krasySlovenskaLink = document.querySelector('.dropdown-content a:nth-child(4)');
+            if (krasySlovenskaLink) {
+                krasySlovenskaLink.href = "https://krasy-slovenska.sk/author/tomas-grancay/";
+            }
+
+            const dejepisLink = document.querySelector('.dropdown-content a:nth-child(5)');
+            if (dejepisLink) {
+                dejepisLink.href = "https://www.taktik.sk/dejepis-v-suvislostiach-5-ucebnica/?srsltid=AfmBOooBF394ZD2cTgeDIbRhFJMRt63TkDWAZ5ww7ck3DINssR8spDbo";
+            }
+
+            // Get the mapa Uhorska link
+            const mapaUhorskaLink = document.querySelector('.dropdown-content a:nth-child(2)'); // Assuming it's the second link in "Mapa hradov" dropdown
+
+
+
+            // Úprava pre "O zabudnutých hradoch"
+            if (zabudnuteHradyDropdown) {
+                zabudnuteHradyDropdown.addEventListener('click', () => {
+                    const headerCenterImg = headerCenter.querySelector('img');
+                    if (headerCenterImg) {
+                        headerCenterImg.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <nav>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">O mne...</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="o autorovi pokus 2.html">o autorovi</a>
+                        <a href="https://dajamabooks.sk/produkt/zabudnute-hrady/">Zabudnuté hrady</a>
+                        <a href="https://historylab.sk/autor-phdr-tomas-grancay/">HistoryLab</a>
+                        <a href="https://krasy-slovenska.sk/author/tomas-grancay/">Krásy Slovenska</a>
+                        <a href="https://www.taktik.sk/dejepis-v-suvislostiach-5-ucebnica/?srsltid=AfmBOooBF394ZD2cTgeDIbRhFJMRt63TkDWAZ5ww7ck3DINssR8spDbo">Dejepis v súvislostiach</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">Mapa hradov</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="najnovšia mapa.html">súčasná mapa</a>
+                        <a href="https://maps.arcanum.com/sk/map/europe-18century-firstsurvey/?layers=163%2C165&bbox=1187933.7705972746%2C5545106.356944461%2C3517734.392729447%2C6412208.0058115">mapa Uhorska</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="header-center">
+            <a href="uvodna strana kopia.html">
+                <img src="logo.jpg" alt="Logo Zabudnuté hrady"  style="transition: transform 0.3s ease-in-out;">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav>
+                 <div class="dropdown">
+                        <a href="#" style="color: black;">
+                            <button>Výskum</button>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="historia oprava.html">história</a>
+                            <a href="cvičenie-architekt.html">architektúra</a> 
+                        </div>
+                </div>
+                <div class="dropdown" id="zabudnuteHradyDropdown">
+                    <a href="#" style="color: black;">
+                        <button id="zabudnuteHradyBtn">O zabudnutých hradoch</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="Sarisska stolica.html">Šarišská stolica</a>
+                        <a href="Spisska stolica.html">Spišská stolica</a>
+                        <a href="#">Iný text</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1cJhlODzwxn4-NnQYmHMdNfG5l1wK5Ng&ehbc=2E312F" width="640" height="480"></iframe>
+    </main>
+
+    <footer class="footer">
+        <p>© 2025, všetky práva vyhradené.</p>
+    </footer>
+</body>
+</html>
