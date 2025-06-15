@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.zabudnutehrady.sk</title>
+    <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: rgb(153, 87, 6);
+            height: auto;
+            flex-wrap: nowrap;
+        }
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            color: rgb(14, 13, 13);
+            white-space: nowrap;
+            margin: 0;
+            padding: 0;
+            width: 40%;
+        }
+        .header-left {
+            justify-content: space-around;
+        }
+        .header-right {
+            justify-content: space-around;
+        }
+        .header-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 20px;
+        }
+        .header-center img {
+            max-height: 166.66px;
+            max-width: 100%;
+            height: auto;
+            position: static;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .header-center img:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        nav button {
+            margin: 0 1cm;
+            font-size: 16px;
+            padding: 20px 30px;
+            border-radius: 10px;
+            border-width: 0;
+            margin-left: 0;
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-family: "Devonshire", cursive;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        nav button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        nav a {
+            text-decoration: none;
+            padding: 0;
+            margin: 0;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #726331;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 2;
+            border-radius: 10px;
+            margin-top: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            width: auto;
+            white-space: nowrap;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+            font-size: 19px;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f8f8f7;
+        }
+
+        .dropdown button {
+            background-color: transparent;
+            color: rgb(19, 16, 10);
+            padding: 20px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 19px;
+            font-family: "Devonshire", cursive;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border: 3px solid rgb(247, 242, 234);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-radius: 40px;
+            box-sizing: border-box;
+            margin: 0 1cm;
+        }
+
+        .dropdown button:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: rgba(235, 234, 233, 0.7);
+        }
+
+        /* Added styles for active state */
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+        .dropdown.active button {
+            background-color: rgba(245, 244, 242, 0.7);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            background-color: rgb(134, 130, 110);
+            color: rgb(247, 240, 240);
+            padding: 30px;
+        }
+        .main-content {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        .video-container {
+            width: 60%;
+        }
+        .video-container video {
+            width: 100%;
+            height: auto;
+            border-radius: 40px;
+        }
+        .text-container {
+            width: 60%;
+            padding-left: 20px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+            margin-right: 15px;
+            cursor: default;
+        }
+        .text-container button {
+            background-color: rgb(190, 152, 68);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .text-container p {
+            font-size: x-large;
+        }
+        .article-container {
+            display: flex;
+            align-items: center;
+            font-size: 40px;
+            background-color: rgb(124, 107, 70);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: x-large;
+            font-weight: bold;
+            cursor: default;
+            margin-bottom: 10px;
+        }
+        .text-left {
+            flex: 2;
+            padding-right: 40px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+        .image-right {
+            flex: 1;
+            text-align: right;
+            margin-top: 15px;
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+        .maly-obrazok {
+            max-width: 850px;
+            height: 450px;
+            border-radius: 40px;
+        }
+        .new-article-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: rgb(92, 69, 19);
+            border-radius: 40px;
+            margin-top: 25px;
+        }
+        .new-text-left {
+            flex: 7;
+            padding-right: 40px;
+            font-size: x-large;
+            color: black;
+            text-align: justify;
+            font-weight: bold;
+            margin-left: 15px;
+            cursor: default;
+        }
+        .new-text-left button {
+            background-color: rgb(190, 152, 68);
+            color: rgb(255, 253, 253);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            margin-top: 10px;
+            margin-left: 20px;
+            cursor: pointer;
+        }
+        .new-text-left p {
+            font-size: x-large;
+        }
+        .kontajner-obrazkov img {
+            display: block;
+            margin-right: 1px;
+            max-width: 350px;
+            margin-right: 10px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            border-radius: 30px;
+        }
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            border-radius: 90px;
+            max-width: max-content;
+        }
+        .gallery img {
+            max-width: 100%;
+            height: auto;
+            margin: 50px;
+            border: 5px solid #0f0f0f;
+            cursor: pointer;
+            border-radius: 50px;
+        }
+        footer {
+            background-color: black;
+            color: rgb(10, 6, 6);
+            text-align: center;
+            font-size: x-large;
+            padding: 40px;
+        }
+        /* UnifrakturMaguntia CSS class */
+        .unifrakturmaguntia-regular {
+            font-family: "UnifrakturMaguntia", cursive;
+            font-weight: 400;
+            font-style: normal;
+        }
+
+        /* Styles for full-screen image */
+        #fullscreen-img-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #fullscreen-img-container img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+        }
+
+        #fullscreen-img-container p {
+            color: white;
+            font-size: 18px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            const oMneButton = document.querySelector('.reference-button');
+            const zabudnuteHradyDropdown = document.getElementById('zabudnuteHradyDropdown');
+            const headerCenter = document.querySelector('.header-center');
+
+            dropdowns.forEach(dropdown => {
+                const button = dropdown.querySelector('button');
+                const dropdownContent = dropdown.querySelector('.dropdown-content');
+
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+
+                    dropdowns.forEach(otherDropdown => {
+                        if (otherDropdown !== dropdown && otherDropdown.classList.contains('active')) {
+                            otherDropdown.classList.remove('active');
+                        }
+                    });
+
+                    dropdown.classList.toggle('active');
+                });
+            });
+
+            document.addEventListener('click', (event) => {
+                dropdowns.forEach(dropdown => {
+                    if (!dropdown.contains(event.target)) {
+                        dropdown.classList.remove('active');
+                    }
+                });
+            });
+
+            const oAutoroviLink = document.querySelector('.dropdown-content a:nth-child(1)');
+            if (oAutoroviLink) {
+                oAutoroviLink.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    window.location.href = "o autorovi pokus 2.html";
+                });
+            }
+
+            const zabudnuteHradyLink = document.querySelector('.dropdown-content a:nth-child(2)');
+            if (zabudnuteHradyLink) {
+                zabudnuteHradyLink.href = "https://dajamabooks.sk/produkt/zabudnute-hrady/";
+            }
+
+            const historyLabLink = document.querySelector('.dropdown-content a:nth-child(3)');
+            if (historyLabLink) {
+                historyLabLink.href = "https://historylab.dennikn.sk/author/phdr-tomas-grancay/";
+            }
+
+            const krasySlovenskaLink = document.querySelector('.dropdown-content a:nth-child(4)');
+            if (krasySlovenskaLink) {
+                krasySlovenskaLink.href = "https://krasy-slovenska.sk/author/tomas-grancay/";
+            }
+
+            const dejepisLink = document.querySelector('.dropdown-content a:nth-child(5)');
+            if (dejepisLink) {
+                dejepisLink.href = "https://www.taktik.sk/dejepis-v-suvislostiach-5-ucebnica/"; 
+            }
+
+            // Get the mapa Uhorska link
+            const mapaUhorskaLink = document.querySelector('.dropdown-content a:nth-child(2)'); // Assuming it's the second link in "Mapa hradov" dropdown
+
+
+
+            // Úprava pre "O zabudnutých hradoch"
+            if (zabudnuteHradyDropdown) {
+                zabudnuteHradyDropdown.addEventListener('click', () => {
+                    const headerCenterImg = headerCenter.querySelector('img');
+                    if (headerCenterImg) {
+                        headerCenterImg.style.display = 'none';
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <nav>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">O mne...</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="o autorovi pokus 2.html">o autorovi</a>
+                        <a href="https://dajamabooks.sk/produkt/zabudnute-hrady/">Zabudnuté hrady</a>
+                        <a href="https://historylab.dennikn.sk/author/phdr-tomas-grancay/">HistoryLab</a> 
+                        <a href="https://krasy-slovenska.sk/author/tomas-grancay/">Krásy Slovenska</a> 
+                        <a href="https://www.taktik.sk/produkt/dejepis-v-suvislostiach-5-ucebnica/">Dejepis v súvislostiach</a> 
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" style="color: black;">
+                        <button class="reference-button">Mapa hradov</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="najnovšia mapa.html">súčasná mapa</a>
+                        <a href="https://maps.arcanum.com/sk/map/europe-18century-firstsurvey/?layers=163%2C165&bbox=1157739.9067500231%2C5570369.927239289%2C3487540.5288821952%2C6437471.576106328">mapa Uhorska</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="header-center">
+            <a href="uvodna strana kopia.html">
+                <img src="logo.jpg" alt="Logo Zabudnuté hrady"  style="transition: transform 0.3s ease-in-out;">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav>
+                 <div class="dropdown">
+                        <a href="#" style="color: black;">
+                            <button>Výskum</button>
+                        </a>
+                        <div class="dropdown-content">
+                            <a href="historia oprava.html">história</a>
+                            <a href="cvičenie-architekt.html">architektúra</a> 
+                        </div>
+                </div>
+                <div class="dropdown" id="zabudnuteHradyDropdown">
+                    <a href="#" style="color: black;">
+                        <button id="zabudnuteHradyBtn">O zabudnutých hradoch</button>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="Sarisska stolica.html">Šarišská stolica</a>
+                        <a href="Spisska stolica.html">Spišská stolica</a>
+                        <a href="#">Iný text</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.zabudnutehrady.sk</title>
+    <style>
+        /* --- CSS štýly --- */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden; /* Zabráni horizontálnemu posúvaniu */
+            background-color: lightgray; /* Svetlošedé pozadie tela */
+        }
+        /* Štýly pre hlavný obsah */
+        main {
+            flex-grow: 1; /* Umožní main elementu rásť a vyplniť dostupný priestor */
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Zarovná obsah na začiatok */
+            align-items: stretch; /* Roztiahne položky na celú šírku */
+            background-color: rgb(134, 130, 110); /* Farba pozadia hlavného obsahu */
+            color: rgb(8, 8, 1); /* Farba textu v hlavnom obsahu */
+            padding: 0; /* Odstránenie vnútorného odsadenia */
+            overflow: hidden; /* Skryje pretekajúci obsah */
+        }
+        /* Štýly pre pätičku */
+        .footer {
+            background-color: #181717; /* Tmavé pozadie pätičky */
+            padding: 40px; /* Vnútorné odsadenie pätičky */
+            text-align: center; /* Centrovanie textu v pätičke */
+            margin-top: auto; /* Posunie pätičku na spodok, ak je málo obsahu */
+            width: 100%; /* Pätička zaberá celú šírku */
+            color: white; /* Biela farba textu v pätičke */
+            font-size: 1.76em; /* Veľkosť písma v pätičke */
+        }
+        /* --- Responzívne štýly --- */
+        @media screen and (max-width: 768px) {
+            /* Úpravy pre menšie obrazovky (tablety a mobily) */
+            .footer {
+                font-size: 1.2em; /* Menšie písmo v pätičke */
+                padding: 10px; /* Menšie odsadenie v pätičke */
+            }
+            .history-text {
+                font-size: 1.2em; /* Menšie písmo pre historický text */
+                max-width: 95%; /* Širší text na menších obrazovkách */
+                padding-left: 1cm; /* Menšie odsadenie pre mobil */
+                padding-right: 1cm; /* Menšie odsadenie pre mobil */
+            }
+            .paragraph {
+                font-size: 1em; /* Menšie písmo pre odseky */
+                max-width: 95%; /* Širšie odseky na menších obrazovkách */
+                border-radius: 25px; /* Menšie zaoblenie rohov */
+            }
+            .center-image-container {
+                width: 6cm; /* Menšia šírka kontajnera pre obrázky */
+                height: auto; /* Automatická výška */
+                margin-bottom: 10px; /* Menší dolný okraj */
+            }
+            .center-image {
+                width: 100%; /* Obrázok vyplní kontajner */
+                height: auto; /* Automatická výška */
+            }
+            #mapa-slovenska-container {
+                width: 60%; /* Zmenšená šírka mapy na menších obrazovkách */
+                height: auto; /* Automatická výška mapy */
+            }
+            #mapa-slovenska {
+                width: 100%; /* Mapa vyplní kontajner */
+                height: auto; /* Automatická výška */
+            }
+            .title-above-image {
+                font-size: 40px; /* Menší nadpis nad obrázkom */
+                top: 10px; /* Posunutie nadpisu vyššie */
+                left: 20px; /* Posunutie nadpisu viac doľava */
+            }
+            .header-image {
+                height: 10cm; /* Menšia výška hlavného obrázka */
+            }
+            .scroll-to-top {
+                width: 50px; /* Menšia šírka na mobiloch */
+                height: 50px; /* Menšia výška na mobiloch */
+                bottom: 20px; /* Menšia vzdialenosť od spodku */
+                right: 20px; /* Menšia vzdialenosť sprava */
+            }
+            .scroll-to-top .arrow-icon {
+                width: 20px; /* Menšia šírka ikony na mobiloch */
+                height: 25px; /* Menšia výška ikony na mobiloch */
+            }
+            .image-caption {
+                font-size: 0.9em; /* Menšie písmo popisu obrázka */
+                max-width: 95%; /* Širší popis na menších obrazovkách */
+            }
+        }
+        /* --- Štýly pre tlačidlá a odkazy --- */
+        .reference-button {
+            display: block; /* Zobrazí ako blokový element */
+            margin: 10px auto; /* Centrovanie a okraje */
+            padding: 10px 20px; /* Vnútorné odsadenie */
+            font-size: 18px; /* Veľkosť písma */
+            background-color: #f5f4f2; /* Farba pozadia */
+            color: #13100a; /* Farba textu */
+            border: 2px solid #b29462; /* Orámovanie */
+            border-radius: 30px; /* Zaoblenie rohov */
+            cursor: pointer; /* Ukazovateľ myši */
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s ease; /* Animácie prechodu */
+            font-weight: bold; /* Tučné písmo */
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* Tieň */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Tieň textu */
+        }
+        .reference-button:hover {
+            transform: translateZ(10px) translateY(-5px); /* Efekt zdvihnutia pri prejdení myšou */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Väčší tieň pri prejdení myšou */
+            background-color: #deb887; /* Zmena farby pozadia pri prejdení myšou */
+        }
+        .reference-button:active {
+            transform: translateY(0); /* Efekt stlačenia */
+            box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2); /* Menší tieň pri stlačení */
+            background-color: #f5f4f2; /* Návrat pôvodnej farby pozadia */
+        }
+        /* --- Štýly pre text a odseky --- */
+        .history-text {
+            text-align: center; /* Zmenené na centrovanie */
+            font-weight: bold; /* Tučné písmo */
+            margin: 20px auto; /* Vonkajšie okraje */
+            padding: 0 5cm; /* Vnútorné odsadenie - zúženie o 5cm z každej strany */
+            max-width: 80%; /* Maximálna šírka */
+            font-size: 1.5em; /* Veľkosť písma */
+            color: #000000; /* Farba textu */
+            line-height: 1.7; /* Výška riadku */
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5); /* Tieň textu */
+        }
+        .container {
+            display: flex; /* Použije flexbox pre layout */
+            flex-direction: column; /* Usporiada prvky pod seba */
+            align-items: center; /* Centrovanie prvkov horizontálne */
+            margin-top: 20px; /* Horný okraj */
+            margin-bottom: 20px; /* Dolný okraj */
+        }
+        .paragraph {
+            text-align: justify; /* Zarovnanie textu do bloku */
+            margin-bottom: 15px; /* Dolný okraj */
+            padding: 15px; /* Vnútorné odsadenie */
+            border: 1px solid #ccc; /* Orámovanie */
+            border-radius: 45px; /* Zaoblenie rohov */
+            background-color: #68541e; /* Farba pozadia */
+            max-width: 80%; /* Maximálna šírka */
+            color: #0e0d0d; /* Farba textu */
+            font-size: 25px; /* Veľkosť písma */
+        }
+        /* --- Štýly pre bodky medzi odsekmi --- */
+        .dot {
+            width: 20px; /* Šírka bodky */
+            height: 20px; /* Výška bodky */
+            border-radius: 50%; /* Kruhový tvar */
+            background-color: #614719; /* Farba pozadia */
+            margin-bottom: 25px; /* Dolný okraj */
+            cursor: pointer; /* Ukazovateľ myši */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animácie prechodu */
+            align-self: center; /* Centrovanie v rámci kontajnera */
+        }
+        .dot:nth-child(2n) { /* Štýl pre každú druhú bodku */
+            background-color: #663300; /* Iná farba pozadia */
+        }
+        .dot:hover {
+            transform: translateZ(5px) translateY(-5px) scale(1.2); /* Efekt pri prejdení myšou */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Tieň pri prejdení myšou */
+        }
+        .dot-container {
+            display: flex; /* Použije flexbox */
+            flex-direction: column; /* Usporiada prvky pod seba */
+            align-items: center; /* Centrovanie horizontálne */
+            margin-top: 20px; /* Horný okraj */
+            margin-bottom: 10px; /* Dolný okraj */
+            position: relative; /* Nastavenie pozície pre prípadné absolútne poziciovanie vnútorných prvkov */
+        }
+        /* --- Štýly pre obrázky --- */
+        .header-image {
+            width: 100%; /* Plná šírka */
+            height: 15cm; /* Pevná výška */
+            object-fit: cover; /* Orezanie obrázka, aby vyplnil kontajner */
+            display: block; /* Zobrazí ako blokový element */
+            margin-bottom: 20px; /* Dolný okraj */
+        }
+        .title-above-image {
+            position: absolute; /* Absolútne poziciovanie voči najbližšiemu pozicovanému rodičovi */
+            top: 210px; /* Vzdialenosť od vrchu (upravené, keďže hlavička je preč) */
+            left: 50px; /* Vzdialenosť zľava */
+            color: #000000; /* Farba textu */
+            font-size: 75px; /* Veľkosť písma */
+            font-family: "UnifrakturMaguntia", cursive; /* Špecifický font */
+            font-weight: bold; /* Tučné písmo */
+            font-style: italic; /* Kurzíva */
+            z-index: 1; /* Vrstva nad ostatnými prvkami */
+            line-height: 1.2; /* Výška riadku */
+            white-space: pre-wrap; /* Zachová biele znaky a zalomenia riadkov */
+        }
+        /* Kontajner pre obrázok a popis */
+        .image-caption-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px; /* Priestor pod kontajnerom */
+            max-width: 80%; /* Maximálna šírka ako pre odseky */
+        }
+        .center-image {
+            display: block; /* Zobrazí ako blokový element */
+            width: 8cm; /* Pevná šírka */
+            height: 8cm; /* Pevná výška */
+            border-radius: 50px; /* Zaoblenie rohov */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tieň */
+            margin-top: 20px; /* Horný okraj */
+            object-fit: cover; /* Orezanie obrázka */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animácie prechodu */
+            cursor: pointer; /* Ukazovateľ myši */
+        }
+        .center-image:hover {
+            transform: translateY(-10px) scale(1.05); /* Efekt pri prejdení myšou */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* Väčší tieň pri prejdení myšou */
+        }
+        #mapa-slovenska-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto 40px auto; /* Centruje horizontálne a pridáva dolný okraj */
+            max-width: 60%; /* Zmenšená maximálna šírka pre mapu */
+        }
+        #mapa-slovenska {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Animácie prechodu */
+            cursor: pointer; /* Ukazovateľ myši */
+            width: 100%; /* Šírka ako percento rodiča */
+            height: auto; /* Automatická výška */
+            border-radius: 50px; /* Zaoblenie rohov */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tieň */
+        }
+        #mapa-slovenska:hover {
+            transform: translateY(-10px) scale(1.05); /* Efekt pri prejdení myšou */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4); /* Väčší tieň pri prejdení myšou */
+        }
+        .image-caption {
+            text-align: center; /* Centrovanie textu */
+            font-size: 1.1em; /* Veľkosť písma */
+            color: #333; /* Farba textu */
+            margin-top: 10px; /* Priestor nad popisom */
+            max-width: 80%; /* Maximálna šírka popisu */
+            font-style: italic; /* Kurzíva */
+            font-weight: bold; /* Tučné písmo */
+        }
+        /* --- Štýly pre modálne okno (zväčšený obrázok) --- */
+        #mapa-modal {
+            display: none; /* Štandardne skryté */
+            position: fixed; /* Fixná pozícia voči oknu prehliadača */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Polopriehľadné čierne pozadie */
+            justify-content: center; /* Centrovanie obsahu horizontálne */
+            align-items: center; /* Centrovanie obsahu vertikálne */
+            z-index: 10; /* Vrstva nad ostatným obsahom */
+        }
+        #mapa-modal img {
+            max-width: 100%; /* Maximálna šírka obrázka */
+            max-height: 100%; /* Maximálna výška obrázka */
+            border-radius: 8px; /* Zaoblenie rohov */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tieň */
+            object-fit: contain; /* Zachová pomer strán obrázka */
+        }
+        #mapa-modal .close-button {
+            position: absolute; /* Absolútne poziciovanie */
+            top: 20px; /* Vzdialenosť od vrchu */
+            right: 20px; /* Vzdialenosť sprava */
+            font-size: 30px; /* Veľkosť ikony zatvorenia */
+            color: white; /* Biela farba */
+            cursor: pointer; /* Ukazovateľ myši */
+            z-index: 11; /* Vrstva nad obrázkom v modálnom okne */
+        }
+        .panzoom-container {
+            width: 100%; /* Plná šírka */
+            height: 100%; /* Plná výška */
+            display: flex; /* Použije flexbox */
+            justify-content: center; /* Centrovanie horizontálne */
+            align-items: center; /* Centrovanie vertikálne */
+        }
+        .panzoom-element {
+            max-width: 90%; /* Maximálna šírka pre panzoom element */
+            max-height: 90%; /* Maximálna výška pre panzoom element */
+            border-radius: 8px; /* Zaoblenie rohov */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Tieň */
+            cursor: grab; /* Ukazovateľ myši pre posúvanie */
+        }
+        .panzoom-element:active {
+            cursor: grabbing; /* Ukazovateľ myši počas posúvania */
+        }
+        /* --- Štýly pre prekrytie obrázka (overlay) --- */
+        #overlay {
+            display: none; /* Štandardne skryté */
+            position: fixed; /* Fixná pozícia */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8); /* Polopriehľadné pozadie */
+            justify-content: center; /* Centrovanie horizontálne */
+            align-items: center; /* Centrovanie vertikálne */
+            z-index: 1000; /* Vysoký z-index, aby bolo navrchu */
+            opacity: 0; /* Štandardne priehľadné (pre animáciu) */
+            transition: opacity 0.5s ease; /* Animácia priehľadnosti */
+        }
+        #overlay img {
+            max-width: 100%; /* Maximálna šírka */
+            max-height: 100%; /* Maximálna výška */
+            border-radius: 0; /* Bez zaoblenia rohov */
+            box-shadow: none; /* Bez tieňa */
+        }
+        #overlay .close-button {
+            position: absolute; /* Absolútne poziciovanie */
+            top: 20px; /* Vzdialenosť od vrchu */
+            right: 20px; /* Vzdialenosť sprava */
+            font-size: 30px; /* Veľkosť ikony */
+            color: white; /* Biela farba */
+            cursor: pointer; /* Ukazovateľ myši */
+            z-index: 1001; /* Vrstva nad obrázkom v prekrytí */
+        }
+        #overlay.show {
+            display: flex; /* Zobrazí prekrytie */
+            opacity: 1; /* Plne viditeľné */
+        }
+        /* --- Štýly pre obrázky s orámovaním --- */
+        .image-with-border {
+            border: 2px solid #b29462; /* Orámovanie */
+            border-radius: 10px; /* Zaoblenie rohov */
+            padding: 5px; /* Vnútorné odsadenie */
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Tieň */
+            margin: 10px; /* Vonkajší okraj */
+            max-width: 90%; /* Maximálna šírka */
+            height: 50%; /* Automatická výška */
+        }
+
+        /* Štýly pre tlačidlo "Scroll to Top" */
+        .scroll-to-top {
+            position: fixed; /* Fixná pozícia */
+            bottom: 30px; /* Vzdialenosť od spodku */
+            right: 30px; /* Vzdialenosť sprava */
+            background-color: #68541e; /* Zmenená farba pozadia na hnedú */
+            color: white; /* Farba ikony */
+            width: 60px; /* Šírka kruhu */
+            height: 60px; /* Výška kruhu */
+            border-radius: 50%; /* Kruhový tvar */
+            display: flex; /* Flexbox pre centrovanie ikony */
+            justify-content: center; /* Centrovanie horizontálne */
+            align-items: center; /* Centrovanie vertikálne */
+            cursor: pointer; /* Ukazovateľ myši */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Tieň */
+            transition: background-color 0.3s ease, transform 0.3s ease, opacity 0.5s ease; /* Animácie prechodu */
+            opacity: 0; /* Štandardne skryté */
+            visibility: hidden; /* Skryté pre interakcie */
+            z-index: 999; /* Vrstva nad ostatnými prvkami */
+        }
+
+        .scroll-to-top.show {
+            opacity: 1; /* Zobrazenie */
+            visibility: visible; /* Viditeľné pre interakcie */
+        }
+
+        .scroll-to-top:hover {
+            background-color: #deb887; /* Zmena farby pri prejdení myšou */
+            transform: translateY(-5px); /* Mierny posun nahor */
+        }
+
+        .scroll-to-top .arrow-icon {
+            width: 20px; /* Zúžená šírka ikony */
+            height: 50px; /* Výška ikony zostáva rovnaká */
+        }
+    </style>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=UnifrakturMaguntia&display=swap">
+</head>
+<body>
+    <main>
+        <h1 class="title-above-image">Historické pozadie <br> výstavby hradov</h1>
+        <img src="veduta.jpg" alt="Historické pozadie" class="header-image">
+        <p class="history-text">
+            Ešte predtým, ako sa pustíme do spoznávania histórie jednotlivých hradov, ktoré vám
+            na stránke predstavujeme, si priblížime historické pozadie budovania hradov.
+        </p>
+        <div class="container">
+            <p class="paragraph">Jedny
+                z prvých kamenných hradov na území Slovenska boli komitátne alebo župné hrady,
+                ktoré patrili kráľovi. Spravovali sa z nich rozsiahlejšie územia, nazývané
+                župy. Tieto územia z poverenia kráľa spravoval najvyšší miestny úradník –
+                župan. Pre svoju dôležitosť boli tieto hrady rozsiahle, aby mohli poskytnúť
+                útočisko (tzv. refúgium) obyvateľstvu zo širšieho okolia a tiež prichýliť
+                väčšie vojsko. Boli nimi napríklad Trenčiansky hrad, Spišský hrad, Starý Tekov
+                alebo Nitriansky hrad. Zaujímavosťou je vývoj z predošlých jednoduchších
+                opevnení. Tieto hrady nevznikali na „zelenej lúke“. Už v 12. storočí (1101 –
+                1200) vznikali postupnou prestavbou a modernizáciou drevozemných hrádkov a
+                hradísk.
+            </p>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <div class="image-caption-container">
+                <img src="havranok.png" alt="Archeologické múzeum v prírode Havránok" class="center-image clickable-image">
+                <p class="image-caption">Drevozemný hrádok - Havránok</p>
+            </div>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <p class="paragraph">V
+                prvej polovici 13. storočia (1201 – 1250) došlo k podstatnému deleniu
+                kráľovského majetku a jeho prechodu do súkromných rúk významných šľachtických
+                rodín. Preto začali vznikať menšie hradné stavby. Nešlo ešte o premyslenú
+                stratégiu obrany celého Uhorského kráľovstva. Výrazná zmena obranného systému
+                krajiny nastala po vpáde Mongolov (Tatárov) na územie Uhorska v rokoch 1241 –
+                1242. Ich veľkou výhodou oproti uhorskému vojsku bola predovšetkým taktika,
+                bojové skúsenosti, dômyselná organizácia, prísna disciplína a nebývalá mobilita
+                a flexibilita.
+            </p>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <div class="image-caption-container">
+                <img src="Thuróczy_Tatárjárás_wiki.jpeg" alt="Vyobrazenie mongolského (tatárskeho) vpádu do Uhorska" class="center-image clickable-image">
+                <p class="image-caption">Vyobrazenie mongolského vpádu do Uhorska</p>
+            </div>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <p class="paragraph">12.
+                marca 1241 mongolské vojsko prekonalo zátarasy vo Vereckom priesmyku (na území
+                súčasnej Ukrajiny) a do jedného muža pobilo vyslané vojsko palatína Dionýza.
+                Kráľ Belo IV. sa vydal s vojskom proti Mongolom dúfajúc, že sa k nemu postupne
+                pripoja ďalšie posily. 10. apríla 1241 dorazili k rieke Slaná a utáborili sa na
+                pravom brehu pri osade Muhi. Kráľ sa dopustil obrovskej chyby, keď nedal
+                strhnúť most cez rieku Slanú, ale ho dal len strážiť. Vodca Mongolov, chán
+                Batu, z druhej strany pozoroval uhorské vojsko a na druhý deň podnikol falošný
+                útok na most, čím odpútal pozornosť uhorského vojska, zatiaľ čo zo severu a
+                juhu tábor napadli hordy Mongolov. V úzkom priestore zasypali uhorské vojsko
+                strelami a nedovolili mu žiadny výpad. Nastal veľký chaos. Mongoli neľútostne
+                prenasledovali a zabíjali všetkých utečencov. V bitke zahynula elita uhorskej
+                moci: dvaja arcibiskupi, traja biskupi, krajinský sudca, taverník,
+                chorvátsko-slavónsky bán a na následky zranení zakrátko zahynul aj kráľov brat
+                Koloman.
+            </p>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <div class="image-caption-container">
+                <img src="Belo IV..jpg" alt="Kráľ Belo IV." class="center-image clickable-image">
+                <p class="image-caption">Kráľ Belo IV.</p>
+            </div>
+            <div class="dot-container">
+                <div class="dot"></div>
+            </div>
+            <p class="paragraph">Kráľovi
+                Belovi IV. sa s malou skupinou podarilo z bojiska ujsť cez Gemer, Bratislavu,
+                Viedeň, Záhreb až do Dalmácie. Nastalo pustošenie celého Uhorska. Po odchode
+                Mongolov v roku 1242 ostala krajina spustošená, obyvateľstvo vydrancované s
+                obrovskými obeťami. Odolali len kamenné murované opevnenia alebo opevnenia v
+                neprístupnom teréne. Po odchode Tatárov bola stále vysoká hrozba ich návratu a
+                bola potrebná okamžitá oprava zničenej a spustošenej krajiny. Kráľ Belo IV.
+                reagoval výstavbou nových hradov a celkovou reorganizáciou obrany krajiny.
+                Hrady sa začali budovať na ohrozených pohraničných oblastiach, na strategických
+                cestách, ale aj s cieľom vytvoriť útočiská nielen pre šľachtu, ale aj pre
+                ostatné obyvateľstvo. Nastala tak éra enormnej výstavby hradov, ktorá nebola
+                nikdy predtým a ani potom prekonaná. Panovník a tiež miestna šľachta pozývali
+                do krajiny špecializované stavebné huty a tak sa na naše územie dostali
+                rozmanité typy hradov, často dnes už zabudnutých.
+            </p>
+        </div>
+        <div id="mapa-slovenska-container" class="image-caption-container">
+            <img id="mapa-slovenska" src="Uhorsko hrady .jpg" alt="Mapa Uhorska s hradmi v 13. storočí" class="clickable-image">
+            <p class="image-caption">Mapa Uhorska s hradmi v 14. storočí</p>
+        </div>
+
+        <div id="mapa-modal">
+            <span class="close-button">&times;</span>
+            <div class="panzoom-container">
+                <img class="panzoom-element" id="modal-img" src="" alt="Zobrazený obrázok">
+            </div>
+        </div>
+        <div id="overlay">
+            <span class="close-button" onclick="closeOverlay()">&times;</span>
+            <img id="overlay-img" src="" alt="Zväčšený obrázok">
+        </div>
+    </main>
+    <footer class="footer">
+        © 2025 Všetky práva vyhradené.
+    </footer>
+
+    <div id="scroll-to-top" class="scroll-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="arrow-icon">
+            <path d="M12 2L2 12h5v8h10v-8h5L12 2z"/>
+        </svg>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/panzoom@9.4.3/dist/panzoom.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Získanie všetkých klikateľných obrázkov (vrátane mapy)
+            const clickableImages = document.querySelectorAll('.center-image.clickable-image, #mapa-slovenska');
+            // Získanie elementov modálneho okna
+            const modal = document.getElementById('mapa-modal');
+            const modalImg = document.getElementById('modal-img');
+            const closeButton = modal.querySelector('.close-button');
+            let panzoomInstance = null; // Premenná pre uloženie inštancie Panzoom
+
+            // Pridanie event listenera pre každý klikateľný obrázok
+            clickableImages.forEach(img => {
+                img.addEventListener('click', () => {
+                    const src = img.getAttribute('src'); // Získanie cesty k obrázku
+                    modalImg.setAttribute('src', src); // Nastavenie obrázka v modálnom okne
+                    modal.style.display = 'flex'; // Zobrazenie modálneho okna
+                    document.body.style.overflow = 'hidden'; // Zabránenie posúvaniu stránky na pozadí
+
+                    // Zničenie predchádzajúcej inštancie Panzoom, ak existuje
+                    if (panzoomInstance) {
+                        panzoomInstance.destroy();
+                    }
+                    // Inicializácia Panzoom pre obrázok v modálnom okne
+                    panzoomInstance = panzoom(modalImg, {
+                            maxZoom: 5, // Maximálny zoom
+                            minZoom: 0.5, // Minimálny zoom
+                            contain: 'outside' // Umožní posúvať obrázok aj mimo jeho hraníc v rámci kontajnera
+                    });
+                });
+            });
+
+            // Funkcia na zatvorenie modálneho okna
+            function closeModal() {
+                modal.style.display = 'none'; // Skrytie modálneho okna
+                document.body.style.overflow = ''; // Povolenie posúvania stránky
+                // Zničenie inštancie Panzoom pri zatvorení
+                if (panzoomInstance) {
+                    panzoomInstance.destroy();
+                    panzoomInstance = null;
+                }
+            }
+
+            // Pridanie event listenera pre tlačidlo zatvorenia
+            closeButton.addEventListener('click', closeModal);
+
+            // Pridanie event listenera pre kliknutie mimo obrázka (na pozadie modálneho okna)
+            modal.addEventListener('click', (event) => {
+                // Ak sa kliklo priamo na modálne okno (nie na obrázok v ňom)
+                if (event.target === modal) {
+                    closeModal(); // Zavrieť modálne okno
+                }
+            });
+
+            // Funkcia pre zobrazenie prekrytia (alternatívny spôsob zväčšenia) - momentálne nie je viazaná na kliknutie
+            const overlay = document.getElementById('overlay');
+            const overlayImg = document.getElementById('overlay-img');
+            function showOverlay(src) {
+                overlayImg.src = src;
+                overlay.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Funkcia pre zatvorenie prekrytia
+            function closeOverlay() {
+                overlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // Pridanie event listenera pre zatvorenie prekrytia kliknutím na pozadie
+            overlay.addEventListener('click', (event) => {
+                if (event.target === overlay) {
+                    closeOverlay();
+                }
+            });
+
+            // Event listener pre klávesu Escape na zatvorenie modálneho okna alebo prekrytia
+            document.addEventListener('keydown', function(event) {
+                if (event.key === "Escape") {
+                    if (modal.style.display === 'flex') {
+                        closeModal();
+                    }
+                    if (overlay.classList.contains('show')) {
+                        closeOverlay();
+                    }
+                }
+            });
+
+            // Získanie tlačidla "Scroll to Top"
+            const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+            // Funkcia pre plynulé posúvanie na začiatok stránky s vlastnou rýchlosťou
+            function scrollToTop() {
+                const startPosition = window.scrollY; // Aktuálna pozícia posúvania
+                const duration = 2000; // Trvanie animácie v milisekundách (pôvodne 1000ms pre "smooth", teraz 2000ms pre polovičnú rýchlosť)
+                let startTime = null; // Čas začiatku animácie
+
+                function animateScroll(currentTime) {
+                    if (startTime === null) startTime = currentTime;
+                    const progress = (currentTime - startTime) / duration; // Pokrok animácie (0 až 1)
+                    const easeInOutQuad = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2; // Easing funkcia pre plynulejší štart a koniec
+
+                    window.scrollTo(0, startPosition * (1 - easeInOutQuad)); // Vypočíta novú pozíciu
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateScroll); // Pokračuje v animácii, ak ešte nie je dokončená
+                    } else {
+                        window.scrollTo(0, 0); // Zabezpečí, že sa posunie presne na začiatok
+                    }
+                }
+                requestAnimationFrame(animateScroll); // Spustí animáciu
+            }
+
+            // Pridanie event listenera pre kliknutie na tlačidlo
+            scrollToTopBtn.addEventListener('click', scrollToTop);
+
+            // Zobrazenie/skrytie tlačidla na základe pozície posúvania
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 200) { // Zobraziť tlačidlo, ak je posunutie viac ako 200px
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
